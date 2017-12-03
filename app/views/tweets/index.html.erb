@@ -22,6 +22,7 @@
           <td><%= t.sentiment  %></td>
           <td><%= t.followers %></td>
         </tr>
+        <%= render :partial => 'tweets/view_tweet_modal', :locals => {:t => t} %>
       <% end %>
     </tbody>
 
