@@ -2,14 +2,15 @@
 
 one:
   user_id: 1
-  user_handle: MyString
-  message: MyString
-  sentiment: MyString
-  followers: 1
+  user_handle: user_one
+  message: pepsi is the best
+  sentiment: 0.5
+  followers: 22
 
 two:
-  user_id: 1
-  user_handle: MyString
-  message: MyString
-  sentiment: MyString
-  followers: 1
+  user_id: 2
+  user_handle: user_two
+  message: i like coke
+  sentiment: 0.9
+  followers: 300
+
