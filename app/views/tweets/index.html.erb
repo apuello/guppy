@@ -22,7 +22,7 @@
         <tr data-toggle="modal" data-target="#viewTweet-<%= t.id %>" >
           <th scope="row"><%= t.user_id %></th>
           <td><%= t.user_handle %></td>
-          <td><%= truncate(t.message, length:20) %> </td>
+          <td><%= truncate(t.message, length:15) %> </td>
           <td><%= t.sentiment  %></td>
           <td><%= t.followers %></td>
         </tr>
