@@ -1,1 +1,30 @@
-<h1>Welcome to Guppy:</h1><p> Eyes in the sea!</p>
+<div class="container">
+  <h1>Welcome to Guppy:</h1><p> Eyes in the sea!</p>
+
+  <table class="table table-dark">
+    
+    <thead>
+      <tr>
+        <th scope="col">User ID</th>
+        <th scope="col">User Handle</th>
+        <th scope="col">Message</th>
+        <th scope="col">Sentiment</th>
+        <th scope="col">Followers</th>
+     </tr>
+    </thead>
+
+    <tbody>
+  	  <% @tweets.each do |t| %>
+        <tr data-toggle="modal" data-target="#viewTweet-<%= t.id %>" >
+          <th scope="row"><%= t.user_id %></th>
+          <td><%= t.user_handle %></td>
+          <td><%= t.message %> </td>
+          <td><%= t.sentiment  %></td>
+          <td><%= t.followers %></td>
+        </tr>
+      <% end %>
+    </tbody>
+
+  </table>
+
+</div>
