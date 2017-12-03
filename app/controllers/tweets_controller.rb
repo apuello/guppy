@@ -1,4 +1,6 @@
 class TweetsController < ApplicationController
+  skip_before_filter :verify_authenticity_token, :only => [:create]
+
   include TweetsHelper
 
   def index
@@ -15,8 +17,9 @@ class TweetsController < ApplicationController
   	#
   	# ACTIVE RECORD SQL STATEMENT USED IN THIS SOLUCION IS EQUIVALENT TO:
   	# SELECT * FROM tweets ORDER BY sentiment DESC;
+	#
+  	# Note: Please note that `filter_messages` will need to be updated to `t.message`
   	# ===============================================================
-  	# 
   	# @tweets = filter_messages(Tweet.all.order(sentiment: :desc))
 
 
@@ -33,5 +36,13 @@ class TweetsController < ApplicationController
   	# SELECT * FROM tweets WHERE message ilike any (array['%coke%', '%coca-cola%', '%diet-cola%'])ORDER BY sentiment DESC;
   	# ========================================================================
   	@tweets = Tweet.where("message ILIKE ANY ( array[?] )", WORDS_ALLOWED.map {|brand| "%#{brand}%" }).order(sentiment: :desc)
+  end
+
+  def create
+  	filter_messages(DevTestApiApp.new.tweets).each do |t|
+  		Tweet.find_or_create_by(user_id: t["id"], user_handle: t["user_handle"], message: t["message"], 
+  			sentiment: t["sentiment"], followers: t["followers"], created_at: t["created_at"], updated_at: t["updated_at"])
+  	end
+  	redirect_to root_path
   end
 end
