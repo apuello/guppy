@@ -39,10 +39,17 @@ class TweetsController < ApplicationController
   end
 
   def create
-  	filter_messages(DevTestApiApp.new.tweets).each do |t|
-  		Tweet.find_or_create_by(user_id: t["id"], user_handle: t["user_handle"], message: t["message"], 
-  			sentiment: t["sentiment"], followers: t["followers"], created_at: t["created_at"], updated_at: t["updated_at"])
-  	end
+    # Storing only tweets that contain the {WORDS_ALLOWED} in TweetsHelper
+  	# filter_messages(DevTestApiApp.new.tweets).each do |t|
+  	# 	Tweet.find_or_create_by(user_id: t["id"], user_handle: t["user_handle"], message: t["message"], 
+  	# 		sentiment: t["sentiment"], followers: t["followers"], created_at: t["created_at"], updated_at: t["updated_at"])
+  	# end
+
+
+     # Storing all tweets regardless if their messages contain the {WORDS_ALLOWED} in TweetsHelper
+    DevTestApiApp.new.tweets.each do |t|
+      Tweet.find_or_create_by(user_id: t["id"], user_handle: t["user_handle"], message: t["message"], sentiment: t["sentiment"], followers: t["followers"], created_at: t["created_at"], updated_at: t["updated_at"])
+    end
   	redirect_to root_path
   end
 end
